@@ -1,42 +1,40 @@
 const items = require('../Items')
 
+// Item schema
+const Item = {
+  type: 'object',
+  properties: {
+    id: { type: 'string' },
+    name: { type: 'string' }
+  }
+}
+
 // Options for get all items
 const getItemsOpts = {
   schema: {
     response: {
       200: {
         type: 'array',
-        items: {
-          type: 'object',
-          properties: {
-            id: { type: 'string' },
-            name: { type: 'string' }
-          }
-        }
+        items: Item
       }
     }
+  },
+  handler: function (req, reply) {
+    reply.send(items)
   }
 }
 
 const getItemOpts = {
   schema: {
     response: {
-      200: {
-        type: 'object',
-        properties: {
-          id: { type: 'string' },
-          name: { type: 'string' }
-        }
-      }
+      200: Item
     }
   }
 }
 
 function itemRoutes(fastify, options, done) {
   // Get all items
-  fastify.get('/items', getItemsOpts, (req, reply) => {
-    reply.send(items)
-  })
+  fastify.get('/items', getItemsOpts)
 
   // Get single item
   fastify.get('/items/:id', getItemOpts, (req, reply) => {
