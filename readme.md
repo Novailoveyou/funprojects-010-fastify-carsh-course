@@ -13,3 +13,5 @@ Year 2021
 ## CLI
 
 ## Things I learned
+
+Fastify Swagger is awesome for api documentation
